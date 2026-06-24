@@ -1,6 +1,6 @@
 const signupBtn = document.getElementById('signup-btn');
 
-const profilePictureInput = "temp_image.jpg";
+const profilePictureInput = document.getElementById('profile-picture');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const nicknameInput = document.getElementById('nickname');
@@ -17,7 +17,7 @@ try{
                 email: emailInput.value,
                 password: passwordInput.value,
                 nickname: nicknameInput.value,
-                profilePicture: profilePictureInput
+                profilePicture: profilePictureInput.files[0]
             })
         });
 
