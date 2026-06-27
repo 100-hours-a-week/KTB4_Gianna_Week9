@@ -1,17 +1,20 @@
 const loginForm = document.getElementById('login-form');
-const loginBtn = document.getElementById('login-btn');
+const loginBtn = document.getElementById('loginBtn');
+
+const loginInput = document.getElementById('email');
+const pwdInput = document.getElementById('password');
 
 loginBtn.addEventListener('click', async (event) => {
-    /*
+    
     try{
-        const response = await fetch('http://localhost:8080/login', {
+        const response = await fetch('http://localhost:8080/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: "test@test.com",
-                password: "test12345"
+                email: loginInput.value,
+                password: pwdInput.value
             })
         });
 
@@ -20,12 +23,10 @@ loginBtn.addEventListener('click', async (event) => {
         }
 
         const data = await response.json();
-        console.log('로그인 성공:', data);
+        console.log('로그인 성공:', data.body);
         window.location.replace('../board/board.html');
 
     }catch(error){
         console.error('로그인 중 오류 발생:', error);
     }
-*/
-    window.location.replace('../board/board.html');
 });
