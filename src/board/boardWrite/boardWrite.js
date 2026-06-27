@@ -27,8 +27,7 @@ postWriteBtn.addEventListener('click', async (event)=>{
         }
 
         const data = await response.json();
-
-        window.location.replace('../board/board.html');
+        window.location.replace('../board.html');
 
     }catch(error){
         console.error('로그인 중 오류 발생:', error);
