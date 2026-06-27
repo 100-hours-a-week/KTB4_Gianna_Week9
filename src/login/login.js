@@ -23,9 +23,8 @@ loginBtn.addEventListener('click', async (event) => {
         }
 
         const data = await response.json();
-        console.log('로그인 성공:', data.body);
-        window.location.replace('../board/board.html');
-
+        document.cookie = `userId = ${data.data.id}; Path=/`
+        window.location.href = '../board/board.html';
     }catch(error){
         console.error('로그인 중 오류 발생:', error);
     }
