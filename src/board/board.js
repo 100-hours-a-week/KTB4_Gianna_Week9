@@ -1,12 +1,4 @@
-getPostsList();
-
-const postContainer = document.getElementsByClassName("common-container");
-
-postContainer[0].addEventListener('click' ,(event)=>{
-    window.location.href = "./boardView/boardView.html";
-});
-
-async function getPostsList  () {
+(async function () {
     try{
         const response = await fetch('http://localhost:8080/posts', {
             method: 'GET',
@@ -25,4 +17,10 @@ async function getPostsList  () {
     }catch(error){
         console.error('로그인 중 오류 발생:', error);
     }
-}
+}());
+
+const postContainer = document.getElementsByClassName("common-container");
+
+postContainer[0].addEventListener('click' ,(event)=>{
+    window.location.href = "./boardView/boardView.html";
+});
