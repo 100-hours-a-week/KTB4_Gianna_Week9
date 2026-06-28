@@ -1,9 +1,10 @@
 const signupBtn = document.getElementById('signup-btn');
 
-const profilePictureInput = document.getElementById('profile-picture');
+const profilePictureInput = document.getElementById('profilePicture');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const nicknameInput = document.getElementById('nickname');
+
 
 signupBtn.addEventListener('click', async (event) => {
     
@@ -17,7 +18,7 @@ try{
                 email: emailInput.value,
                 password: passwordInput.value,
                 nickname: nicknameInput.value,
-                profilePicture: profilePictureInput.files[0]
+                profilePicture: profilePictureInput.files[0].name
             })
         });
 
