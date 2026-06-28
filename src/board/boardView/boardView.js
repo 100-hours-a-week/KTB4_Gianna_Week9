@@ -37,7 +37,7 @@ const makePostViewHeader = async (post, curUserId) =>{
 
         const user = await getUser(curUserId);
         const profilePicture= document.createElement('img');
-        profilePicture.src = '#';//user.profilePicture;
+        profilePicture.src = user?.profilePicture || '';//user.profilePicture;
         profilePicture.id = "postProfilePicture";
 
         const author = document.createElement('h4');   
@@ -49,9 +49,15 @@ const makePostViewHeader = async (post, curUserId) =>{
         date.textContent = post.createdAt;
 
         const postHeaderDiv = document.getElementById('postHeader')
-        postHeaderDiv.append(title, profilePicture, author, date)
+        const postHeaderMeta = document.createElement('div');
+        postHeaderMeta.classList.add('post-header-meta');
+        postHeaderMeta.append(profilePicture, author, date);
+        postHeaderDiv.append(title, postHeaderMeta)
 
         if(curUserId == post.userId){
+            const actionGroup = document.createElement('div');
+            actionGroup.classList.add('post-action-group');
+
             const updateBtn = document.createElement('button');
             updateBtn.id = "postUploadBtn";
             updateBtn.textContent = "수정";   
@@ -62,7 +68,8 @@ const makePostViewHeader = async (post, curUserId) =>{
             deleteBtn.textContent = "삭제"
 
             
-            postHeaderDiv.append(updateBtn, deleteBtn)
+            actionGroup.append(updateBtn, deleteBtn);
+            postHeaderDiv.append(actionGroup)
         }        
 }
 
@@ -75,10 +82,10 @@ const makePostViewContent = (post) =>{
 
     const file = document.createElement('img');
     file.id = "postViewFile";
-    file.src = '#' //post.file;
+    file.src = post.file || '' //post.file;
 
     const postContainerDiv = document.getElementById('postContainer');
-    postContainerDiv.append(content, file)
+    postContainerDiv.append(file, content)
 }
 
 

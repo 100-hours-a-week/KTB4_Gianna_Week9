@@ -4,23 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아무 말 대잔치</title>
+    <link rel="stylesheet" href="boardView.css">
     <script type="module" defer src="./boardView.js"></script>
-    <script type="module" defer src="./comment.js""></script>
+    <script type="module" defer src="./comment.js"></script>
 
 </head>
 <body>
     <div id="headerContainer"></div>
 
-    <h1>게시글 상세 조회</h1>
-    <div id="postHeader"></div>
-    <!-- 긴 줄 -->
-    <div id="postContainer">
-    </div>
-    <!-- 긴 줄 -->
-    <div id ="postCommentContainer" class="common-container">
-        <textarea id="commentContentEnter" placeholder="댓글을 남겨주세요!"></textarea>
-        <button id="postCommentBtn">댓글 등록</button>
-    </div>
-    <div id="commentListContainer"></div>
+    <main class="board-view-page">
+        <article class="post-detail">
+            <div id="postHeader"></div>
+            <div id="postContainer"></div>
+            <div id="postStats" class="post-stats">
+                <div><strong>123</strong><span>좋아요수</span></div>
+                <div><strong>123</strong><span>조회수</span></div>
+                <div><strong>123</strong><span>댓글</span></div>
+            </div>
+        </article>
+
+        <section id="postCommentContainer" class="comment-write-container">
+            <textarea id="commentContentEnter" placeholder="댓글을 남겨주세요!"></textarea>
+            <button id="postCommentBtn">댓글 등록</button>
+        </section>
+
+        <section id="commentListContainer" class="comment-list-container"></section>
+    </main>
 </body>
 </html>

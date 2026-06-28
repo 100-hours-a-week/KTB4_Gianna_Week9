@@ -1,0 +1,251 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #f4f5f7;
+    color: #111111;
+    font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+.board-view-page {
+    width: 100%;
+    padding: 24px 20px 60px;
+}
+
+.post-detail,
+.comment-write-container,
+.comment-list-container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+#postHeader {
+    position: relative;
+    padding: 0 0 18px;
+    border-bottom: 1px solid #dddddd;
+}
+
+#title {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.post-header-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#postProfilePicture,
+.comment-profile {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    object-fit: cover;
+}
+
+#postProfilePicture[src="#"],
+#postProfilePicture[src=""] {
+    content: "";
+}
+
+#postAuthor,
+#postUploadDate {
+    margin: 0;
+    font-size: 12px;
+}
+
+#postAuthor {
+    font-weight: 700;
+}
+
+.post-action-group {
+    position: absolute;
+    right: 8px;
+    bottom: 20px;
+    display: flex;
+    gap: 8px;
+}
+
+.post-action-group button,
+.comment-action-group button {
+    min-width: 36px;
+    height: 28px;
+    border: 1px solid #aca0eb;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #111111;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#postContainer {
+    padding: 16px 0 0;
+}
+
+#postViewFile {
+    width: 100%;
+    height: 208px;
+    display: block;
+    margin-bottom: 18px;
+    background-color: #d9d9d9;
+    object-fit: cover;
+}
+
+#postViewFile[src="#"],
+#postViewFile[src=""] {
+    object-fit: none;
+}
+
+#postContent {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
+    white-space: pre-wrap;
+}
+
+.post-stats {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 14px 0 20px;
+}
+
+.post-stats div {
+    width: 78px;
+    height: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #d9d9d9;
+}
+
+.post-stats strong {
+    font-size: 16px;
+}
+
+.post-stats span {
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.comment-write-container {
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    background-color: #ffffff;
+}
+
+#commentContentEnter {
+    width: 100%;
+    height: 84px;
+    display: block;
+    padding: 22px 16px;
+    border: none;
+    border-bottom: 1px solid #eeeeee;
+    resize: none;
+    outline: none;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+#postCommentBtn {
+    width: 94px;
+    height: 30px;
+    display: block;
+    margin: 6px 6px 6px auto;
+    border: none;
+    border-radius: 12px;
+    background-color: #aca0eb;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.comment-list-container {
+    padding-top: 14px;
+}
+
+.comment-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    column-gap: 10px;
+    row-gap: 6px;
+    padding: 0 0 18px;
+}
+
+.comment-profile {
+    grid-row: 1 / 3;
+}
+
+.comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.comment-author-text,
+.comment-date-text,
+.comment-content-text {
+    margin: 0;
+}
+
+.comment-author-text {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.comment-date-text {
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.comment-content-text {
+    grid-column: 2 / 4;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.comment-action-group {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    display: flex;
+    gap: 8px;
+    align-self: start;
+}
+
+@media (max-width: 480px) {
+    .board-view-page {
+        padding: 20px 16px 48px;
+    }
+
+    .post-detail,
+    .comment-write-container,
+    .comment-list-container {
+        width: 100%;
+    }
+
+    .post-action-group {
+        position: static;
+        margin-top: 12px;
+    }
+
+    .comment-item {
+        grid-template-columns: 28px 1fr;
+    }
+
+    .comment-action-group {
+        grid-column: 2;
+        grid-row: auto;
+    }
+}

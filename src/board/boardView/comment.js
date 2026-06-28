@@ -96,6 +96,15 @@ getCommentList(postId);
 
 const makeCommentView = async (comment, curUserId) =>{
     const user= await getUser(curUserId);
+    const commentItem = document.createElement('article');
+    commentItem.classList.add('comment-item');
+
+    const profile = document.createElement('div');
+    profile.classList.add('comment-profile');
+
+    const meta = document.createElement('div');
+    meta.classList.add('comment-meta');
+
     const author = document.createElement('h5');
     author.classList.add("comment-author-text");
     author.textContent = comment.author;
@@ -109,9 +118,13 @@ const makeCommentView = async (comment, curUserId) =>{
     content.textContent = comment.content;
 
     const commentListContainer = document.getElementById('commentListContainer')
-    commentListContainer.append(author, date, content)
+    meta.append(author, date);
+    commentItem.append(profile, meta, content);
     
     if(curUserId == comment.userId) {
+        const actionGroup = document.createElement('div');
+        actionGroup.classList.add('comment-action-group');
+
         const updateBtn = document.createElement('button');
             updateBtn.id = "postUploadBtn";
             updateBtn.textContent = "수정";   
@@ -123,8 +136,11 @@ const makeCommentView = async (comment, curUserId) =>{
             deleteBtn.addEventListener('click', await requestDeleteComment(event, comment.id))
             deleteBtn.onclick = ()=>{location.reload()};
 
-        commentListContainer.append(updateBtn, deleteBtn) 
+        actionGroup.append(updateBtn, deleteBtn);
+        commentItem.append(actionGroup);
     }
+
+    commentListContainer.append(commentItem);
 }
 
 const requestDeleteComment = async (event, commentId) => {
@@ -153,4 +169,3 @@ const requestUpdateComment = (commentId, content) =>{
     commentUpdateBtn.textContent = '댓글 수정'
     document.cookie = `curUpdateCommentId = ${commentId};`
 }
-
