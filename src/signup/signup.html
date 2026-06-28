@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아무 말 대잔치</title>
     <link rel="stylesheet" href="signup.css">
-    <script defer src="signup.js"></script>
+    <script type="module" defer src="signup.js"></script>
 </head>
 <body>
-    <header class="page-header">
-        <a class="back-link" href="../login/login.html" aria-label="로그인 화면으로 이동">&lt;</a>
-        <h1>아무 말 대잔치</h1>
-    </header>
+    <div id="headerContainer" class="signup-header"></div>
 
     <main class="signup-page">
         <section class="signup-container">
@@ -19,9 +16,9 @@
 
             <div id="signup-form">
                 <div class="profile-field">
-                    <label for="profile-picture">프로필 사진</label>
+                    <label for="profilePicture">프로필 사진</label>
                     <p class="helper-text profile-helper">* helper text</p>
-                    <label class="profile-upload" for="profile-picture">
+                    <label class="profile-upload" for="profilePicture">
                         <span>+</span>
                     </label>
                     <input id="profilePicture" type="file" accept="image/png, image/jpeg"/>

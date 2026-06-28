@@ -1,3 +1,7 @@
+import { loadHeader } from "../components/header/header.js";
+
+loadHeader();
+
 const signupBtn = document.getElementById('signup-btn');
 
 const profilePictureInput = document.getElementById('profilePicture');

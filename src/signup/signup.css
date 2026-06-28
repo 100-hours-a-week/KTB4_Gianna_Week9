@@ -10,46 +10,25 @@ body {
     font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
 
-.page-header {
-    position: relative;
-    height: 104px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid #333333;
-}
-
-.page-header h1 {
-    margin: 0;
-    font-size: 32px;
-    font-weight: 400;
-}
-
-.back-link {
-    position: absolute;
-    left: calc(50% - 245px);
-    top: 50%;
-    transform: translateY(-50%);
-    color: #111111;
-    font-size: 30px;
-    line-height: 1;
-    text-decoration: none;
-}
-
 .signup-page {
     min-height: calc(100vh - 104px);
     display: flex;
     justify-content: center;
-    padding-top: 165px;
+    padding-top: 65px;
+}
+
+.signup-header .profile-toggle-btn,
+.signup-header .mypage-toggle-container {
+    display: none;
 }
 
 .signup-container {
-    width: 360px;
+    width: 380px;
     text-align: center;
 }
 
 .signup-container h2 {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     font-size: 30px;
     font-weight: 700;
 }
@@ -87,14 +66,14 @@ body {
 }
 
 .profile-field {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .profile-helper {
     margin: -4px 0 8px;
 }
 
-#profile-picture {
+#profilePicture {
     display: none;
 }
 
@@ -142,22 +121,9 @@ body {
 }
 
 @media (max-width: 480px) {
-    .page-header {
-        height: 88px;
-    }
-
-    .page-header h1 {
-        font-size: 26px;
-    }
-
-    .back-link {
-        left: 20px;
-        font-size: 28px;
-    }
-
     .signup-page {
         min-height: calc(100vh - 88px);
-        padding: 90px 20px 0;
+        padding: 60px 20px 0;
     }
 
     .signup-container {
