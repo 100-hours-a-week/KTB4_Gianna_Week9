@@ -31,14 +31,13 @@ async function showPostList () {
         makePostView(post)
     })
    
-    // postContainer[0].addEventListener('click' ,(event)=>{
-    //     window.location.href = "./boardView/boardView.html";
-    // });
+   
 }
 
 const makePostView = (post) =>{
  const postDiv = document.createElement("div");
     postDiv.classList.add('common-container');
+    makeEventListener(postDiv, post.id)
 
     const title = document.createElement('h3');
     title.id ="postListTitle"
@@ -70,5 +69,13 @@ const makePostView = (post) =>{
     author.textContent = post.author;
     postDiv.append(author)
 
+    
+
     document.body.appendChild(postDiv);
+}
+
+const makeEventListener = (postDiv, postId)=>{
+    postDiv.addEventListener('click' ,(event)=>{
+        window.location.href = `./boardView/boardView.html?postId=${postId}`;
+    }); 
 }
