@@ -11,14 +11,15 @@
     
     <h1>회원정보수정</h1>
     <div class="mypage-update-container">
-        <h5 id="profilePictureText">프로필 사진 </h5>
-        <img src="#"/>
-        <h5 id="emailText">이메일</h5>
+        <h5 id="profilePictureLabel">프로필 사진 </h5>
+        <input id="newProfilePicture" type="file" accept="image/png, image/jpeg"/>
+
+        <h5 id="emailLabel">이메일</h5>
         <h6 id="emailDesc"></h6>
 
-        <h5 id="nickNameText">닉네임</h5>
-        <input type="text"></input>
-        <h6 id="pwdHelperText">*helper text</h6>
+        <h5 id="nickNameLabel">닉네임</h5>
+        <input id="nicknameText" type="text"></input>
+        <h6 id="nicknameHelperText">*helper text</h6>
 
         <button id="updateBtn">수정하기</button>
         <button id="deleteBtn">회원 탈퇴</button>
