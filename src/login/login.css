@@ -28,7 +28,7 @@ body {
     min-height: calc(100vh - 104px);
     display: flex;
     justify-content: center;
-    padding-top: 260px;
+   align-items: center;
 }
 
 .login-container {
