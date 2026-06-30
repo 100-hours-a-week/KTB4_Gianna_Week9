@@ -3,7 +3,7 @@ export const getPostId = () =>{
     return params.get("postId");
 }
 
-export const getuUserId = async () =>{
+export const getUserId = async () =>{
     const cookie = await cookieStore.get('userId');
     return cookie.value;
 }
