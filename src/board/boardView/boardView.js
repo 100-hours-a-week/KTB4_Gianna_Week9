@@ -6,7 +6,7 @@ loadHeader();
 
 const postId = getPostId();
 const boardViewProcess = async()=>{
-    const cookie = await getUserId();
+    const userId = await getUserId();
     try{
         const response = await fetch(`http://localhost:8080/posts/${postId}`, {
             method: 'GET',
@@ -20,19 +20,19 @@ const boardViewProcess = async()=>{
         }
 
         const data = await response.json();
-        await makePostViewHeader(data.data, curUserId)
+        await makePostViewHeader(data.data, userId)
         makePostViewContent(data.data);
     }catch(error){
         console.error('boardView 오류 발생:', error);
     }
 };
 
-const makePostViewHeader = async (post, curUserId) =>{
+const makePostViewHeader = async (post, userId) =>{
         const title = document.createElement('h3');
         title.id = "title";
         title.textContent =post.title;
 
-        const user = await getUser(curUserId);
+        const user = await getUser(userId);
         const profilePicture= document.createElement('img');
         profilePicture.src = user?.profilePicture || '';//user.profilePicture;
         profilePicture.id = "postProfilePicture";
@@ -51,7 +51,7 @@ const makePostViewHeader = async (post, curUserId) =>{
         postHeaderMeta.append(profilePicture, author, date);
         postHeaderDiv.append(title, postHeaderMeta)
 
-        if(curUserId == post.userId){
+        if(userId == post.userId){
             const actionGroup = document.createElement('div');
             actionGroup.classList.add('post-action-group');
 
