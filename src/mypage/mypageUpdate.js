@@ -8,7 +8,7 @@ const user = await getUser(userId);
 
 const setForm = (user) =>{
     const newProfilePicture = document.getElementById('newProfilePicture');
-    newProfilePicture.file = user.file;
+    newProfilePicture.file = user?.file;
 
     const emailDesc = document.getElementById('emailDesc');
     emailDesc.textContent = user.email;
@@ -50,6 +50,27 @@ updateBtn.addEventListener('click', async ()=>{
         } catch(error){
             console.error('오류 발생:', error);
         }
+    }  
+})
+
+const deleteBtn = document.getElementById('deleteBtn');
+deleteBtn.addEventListener('click', async ()=>{
+    if(window.confirm('회원탈퇴 하시겠습니까?')){
+        try{
+            const response = await fetch(`http://localhost:8080/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }, 
+            });
+
+            if (!response.ok) {
+                throw new Error('닉네임 수정 실패');
+            }
+
+            window.location.reload('/src/login/login.html')
+        } catch(error){
+            console.error('오류 발생:', error);
+        }
     }
-    
 })
