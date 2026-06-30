@@ -57,7 +57,9 @@ loginBtn.addEventListener('click', async (event) => {
     const emailInput = document.getElementById('email').value;
     const pwdInput = document.getElementById('password').value;
      
-    validateInput(emailInput, pwdInput);
+    validateEmailInput(emailInput);
+    validatePwdInput(pwdInput);
+    
     try{
         const response = await fetch('http://localhost:8080/users/login', {
             method: 'POST',
