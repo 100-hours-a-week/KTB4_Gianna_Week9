@@ -27,6 +27,23 @@ const boardViewProcess = async()=>{
     }
 };
 
+const deletePost = async () =>{
+    try{
+        const response = await fetch(`http://localhost:8080/posts/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('게시물 상세 조회 실패');
+        }
+    }catch(error){
+        console.error('boardView 오류 발생:', error);
+    }
+}
+
 const makePostViewHeader = async (post, userId) =>{
         const title = document.createElement('h3');
         title.id = "title";
@@ -63,6 +80,11 @@ const makePostViewHeader = async (post, userId) =>{
             const deleteBtn = document.createElement('button');
             deleteBtn.id = "postDeleteBtn";
             deleteBtn.textContent = "삭제"
+            deleteBtn.addEventListener('click', async()=>{ 
+                if(window.confirm("게시글을 삭제하시겠습니까?")) {
+                    await deletePost();}
+                    //window.location.href ="/src/board/board.html";
+                })
 
             
             actionGroup.append(updateBtn, deleteBtn);

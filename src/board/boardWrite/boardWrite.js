@@ -59,14 +59,14 @@ async function postWriteEventHandler() {
         });
 
         if (!response.ok) {
-            throw new Error('로그인 실패');
+            throw new Error('게시글 작성 실패');
         }
 
         const data = await response.json();
         window.location.replace('../board.html');
 
     }catch(error){
-        console.error('로그인 중 오류 발생:', error);
+        console.error('오류 발생:', error);
     }
 }
 
@@ -87,13 +87,13 @@ async function postUpdateEventHandler(){
         });
 
         if (!response.ok) {
-            throw new Error('로그인 실패');
+            throw new Error('게시글 수정 실패');
         }
 
         window.location.replace(`../boardView/boardView.html?postId=${postId}`);
 
     }catch(error){
-        console.error('로그인 중 오류 발생:', error);
+        console.error('오류 발생:', error);
     }
 }
 
@@ -134,13 +134,13 @@ async function updateForm(postIdFromURL) {
         });
 
         if (!response.ok) {
-            throw new Error('로그인 실패');
+            throw new Error('게시글 가져오기 실패');
         }
 
         const data = await response.json();
         setFormWithPostInfo(data.data);
     } catch(error){
-        console.error('로그인 중 오류 발생:', error);
+        console.error('오류 발생:', error);
     }
 }
 

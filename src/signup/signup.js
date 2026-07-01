@@ -78,7 +78,7 @@ signupBtn.addEventListener('click', async (event) => {
                 email: emailInput.value,
                 password: passwordInput.value,
                 nickname: nicknameInput.value,
-                profilePicture: profilePictureInput.files[0].name
+                profilePicture: profilePictureInput?.files[0]?.name
             })
         });
 

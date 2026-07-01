@@ -17,7 +17,7 @@ async function getPostList  () {
         });
 
         if (!response.ok) {
-            throw new Error('로그인 실패');
+            throw new Error('게시물 목록 조회 실패');
         }
 
         const data = await response.json();
@@ -25,7 +25,7 @@ async function getPostList  () {
             postList.push(posts);
         });
     } catch(error){
-        console.error('로그인 중 오류 발생:', error);
+        console.error('오류 발생:', error);
     }
 }
 

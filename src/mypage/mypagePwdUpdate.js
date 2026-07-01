@@ -23,7 +23,8 @@ function checkPwdValid(){
 
 pwdInput.addEventListener('input', ()=>{
     const helperText = pwdHelperTextMaker(pwdInput.value, pwdCheckInput.value);
-    pwdHelperText.textContent= helperText    
+
+    pwdHelperText.textContent= helperText        
     checkPwdValid();
 })
 
@@ -48,7 +49,7 @@ const requestUpdatePwd = async ()=>{
         });
 
         if (!response.ok) {
-            throw new Error('로그인 실패');
+            throw new Error('비밀번호 업데이트 실패');
         }
 
         const data = await response.json();

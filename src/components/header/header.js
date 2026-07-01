@@ -20,7 +20,7 @@ export const loadHeader = async () => {
         const backBtn = document.getElementById("backBtn");
         const logoutItem = document.getElementById("logoutItem");
 
-        setProfileImage(profileImage);
+        await setProfileImage(profileImage);
 
         backBtn?.addEventListener('click', () => {
             history.back();
@@ -41,27 +41,21 @@ export const loadHeader = async () => {
 };
 
 const setProfileImage = async (profileImage) => {
-    if (!profileImage) {
-        return;
-    }
+    const storedProfileImage = localStorage.getItem("profilePicture");
 
-    const storedProfileImage = localStorage.getItem("profilePicture") || localStorage.getItem("profileImage");
-    if (storedProfileImage) {
+    if (storedProfileImage && storedProfileImage !== "undefined") {
         profileImage.src = storedProfileImage;
         return;
     }
 
     try {
-        if (!window.cookieStore) {
+        const userId = await getUserId();
+        console.log(userId)
+        if (!userId) {
             return;
         }
 
-        const userIdCookie = await getUserId();
-        if (!userIdCookie) {
-            return;
-        }
-
-        const response = await fetch(`http://localhost:8080/users/${userIdCookie}/profilePicture`, {
+        const response = await fetch(`http://localhost:8080/users/${userId}/profilePicture`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -75,11 +69,13 @@ const setProfileImage = async (profileImage) => {
         const data = await response.json();
         const profilePictureData = data?.data?.profilePicture;
         
-
         if (profilePictureData) {
             profileImage.src = profilePictureData;
             localStorage.setItem("profilePicture", profilePictureData);
         }
+        profileImage.src = storedProfileImage;
+        console.log(profileImage)
+
     } catch (error) {
         console.error("프로필 이미지 로딩 중 오류 발생:", error);
     }
