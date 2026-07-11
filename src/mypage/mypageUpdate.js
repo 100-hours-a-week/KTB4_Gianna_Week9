@@ -2,7 +2,7 @@ import { loadHeader } from "../components/header/header.js";
 import { getUser, getUserId } from "../module/module.js";
 import { nicknameHelperTextMaker } from "../utils/helperTextMaker.js";
 
-loadHeader();
+await loadHeader();
 
 const userId = await getUserId();
 const user = await getUser(userId);
@@ -44,6 +44,7 @@ updateBtn.addEventListener('click', async ()=>{
         try{
             const response = await fetch(`http://localhost:8080/users/${userId}/nickname`, {
                 method: 'PATCH',
+                credentials:"include",
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -55,24 +56,15 @@ updateBtn.addEventListener('click', async ()=>{
 
             if (!response.ok) {
                 throw new Error('닉네임 수정 실패');
+            }else{
+                const toastMsg = document.createElement('h5');
+                toastMsg.classList.add("toastMsg");
+                toastMsg.id = "pwdUpdateSuccessToastMsg"
+                toastMsg.textContent ="수정완료";
+
+                const updateContainer = document.getElementById('updateContainer');
+                updateContainer.append(toastMsg)
             }
-
-            const data = await response.json();
-            if(!data.data){
-            const existingToastMsg = document.getElementById('pwdUpdateSuccessToastMsg');
-            if (existingToastMsg) {
-                existingToastMsg.remove();
-            }
-
-            const toastMsg = document.createElement('h5');
-            toastMsg.classList.add("toastMsg");
-            toastMsg.id = "pwdUpdateSuccessToastMsg"
-            toastMsg.textContent ="수정완료";
-
-            const updateContainer = document.getElementById('updateContainer');
-            updateContainer.append(toastMsg)
-            setTimeout(()=>{window.location.replace('/src/board/board.html')}, 3000)
-        }
         } catch(error){
             console.error('오류 발생:', error);
         }
@@ -86,6 +78,7 @@ deleteBtn.addEventListener('click', async ()=>{
         try{
             const response = await fetch(`http://localhost:8080/users/${userId}`, {
                 method: 'DELETE',
+                credentials:"include",
                 headers: {
                     'Content-Type': 'application/json'
                 }, 

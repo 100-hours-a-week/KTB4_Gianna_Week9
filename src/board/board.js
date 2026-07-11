@@ -10,10 +10,7 @@ async function getPostList  () {
     try{
         const response = await fetch('http://localhost:8080/posts', {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            
+            credentials:"include"        
         });
 
         if (!response.ok) {

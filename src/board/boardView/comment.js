@@ -1,6 +1,7 @@
-import { getPostId, getUser, formalizeDate } from "../../module/module.js";
+import { getPostId, getUserId, getUser, formalizeDate } from "../../module/module.js";
 const postCommentBtn = document.getElementById('postCommentBtn');
-const postId = getPostId();
+const postId = await getPostId();
+const userId = await getUserId();
 
 const commentEnterText = document.getElementById('commentContentEnter');
 commentEnterText.addEventListener('input', ()=>{
@@ -31,8 +32,9 @@ const updateCommentEventListener = async(event) =>{
     try{
         const response = await fetch(`http://localhost:8080/posts/${postId}/comments/${commentId}`, {
             method: 'PATCH',
+            credentials:"include",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 content: newContent.value,
@@ -51,15 +53,14 @@ const updateCommentEventListener = async(event) =>{
 }
 
 const postCommentEventListener = async () =>{
-    const cookie = await cookieStore.get('userId');
-    const curUserId = cookie.value;
     const commentContentEnter = document.getElementById('commentContentEnter');
 
     try{
-        const response = await fetch(`http://localhost:8080/posts/${postId}/comments/${curUserId}`, {
+        const response = await fetch(`http://localhost:8080/posts/${postId}/comments/${userId}`, {
             method: 'POST',
+            credentials:"include",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 content: commentContentEnter.value,
@@ -79,14 +80,10 @@ const postCommentEventListener = async () =>{
 }
 
 const getCommentList = async (postId) => {
-    const cookie = await cookieStore.get('userId');
-    const curUserId = cookie.value;
     try{
         const response = await fetch(`http://localhost:8080/posts/${postId}/comments`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            credentials:"include",
             
         });
 
@@ -96,7 +93,7 @@ const getCommentList = async (postId) => {
 
         const data = await response.json();
         data.data.commentsList.forEach(async (comment) => {
-            await makeCommentView(comment, curUserId)
+            await makeCommentView(comment, userId)
         });
     }catch(error){
         console.error('로그인 중 오류 발생:', error);
@@ -145,7 +142,7 @@ const makeCommentView = async (comment, curUserId) =>{
             const deleteBtn = document.createElement('button');
             deleteBtn.id = "postDeleteBtn";
             deleteBtn.textContent = "삭제"
-            deleteBtn.addEventListener('click', async ()=>{
+            deleteBtn.addEventListener('click', async (event)=>{
                 if(window.confirm("댓글을 삭제하시겠습니까?")){
                     await requestDeleteComment(event, comment.id);
                 }
@@ -167,10 +164,7 @@ const requestDeleteComment = async (event, commentId) => {
      try{
         const response = await fetch(`http://localhost:8080/posts/${postId}/comments/${commentId}`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            
+            credentials:"include",        
         });
 
         if (!response.ok) {
@@ -184,8 +178,8 @@ const requestDeleteComment = async (event, commentId) => {
 
 const requestUpdateComment = (commentId, content) =>{
     const commentContentEnter = document.getElementById('commentContentEnter');
-    commentContentEnter.textContent = content;
+    commentContentEnter.value = content;
     const commentUpdateBtn = document.getElementById('postCommentBtn');
     commentUpdateBtn.textContent = '댓글 수정'
-    document.cookie = `curUpdateCommentId = ${commentId};`
+    document.cookie = `curUpdateCommentId=${commentId};`
 }

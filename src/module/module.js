@@ -12,10 +12,7 @@ export const getUser = async(userId) =>{
     try{
         const response = await fetch(`http://localhost:8080/users/${userId}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            
+            credentials:"include"    
         });
 
         if (!response.ok) {
@@ -23,6 +20,7 @@ export const getUser = async(userId) =>{
         }
 
         const data = await response.json();
+        
         return data.data;
     }catch(error){
         console.error('오류 발생:', error);

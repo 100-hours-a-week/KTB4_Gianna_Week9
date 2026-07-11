@@ -71,6 +71,7 @@ signupBtn.addEventListener('click', async (event) => {
     try{
         const response = await fetch('http://localhost:8080/users/signup', {
             method: 'POST',
+            credentials:"include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -86,7 +87,7 @@ signupBtn.addEventListener('click', async (event) => {
             throw new Error('회원가입 실패');
         }
 
-        const data = await response.json();
+        const data = await response;
         console.log('회원가입 성공:', data);
         window.location.replace('../login/login.html');
     }catch(error){

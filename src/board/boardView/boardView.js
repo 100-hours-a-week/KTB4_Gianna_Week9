@@ -10,6 +10,7 @@ const boardViewProcess = async()=>{
     try{
         const response = await fetch(`http://localhost:8080/posts/${postId}`, {
             method: 'GET',
+            credentials:"include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -31,6 +32,7 @@ const deletePost = async () =>{
     try{
         const response = await fetch(`http://localhost:8080/posts/${postId}`, {
             method: 'DELETE',
+            credentials:"include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -75,7 +77,7 @@ const makePostViewHeader = async (post, userId) =>{
             const updateBtn = document.createElement('button');
             updateBtn.id = "postUploadBtn";
             updateBtn.textContent = "수정";   
-            updateBtn.addEventListener('click', ()=> window.location.href= `../boardWrite/boardWrite.html?postId=${post.postId}`);
+            updateBtn.addEventListener('click', ()=> window.location.href= `../boardWrite/boardWrite.html?postId=${postId}`);
             
             const deleteBtn = document.createElement('button');
             deleteBtn.id = "postDeleteBtn";

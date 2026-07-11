@@ -40,6 +40,8 @@ const requestUpdatePwd = async ()=>{
     try{
         const response = await fetch(`http://localhost:8080/users/${curUserId}/password`, {
             method: 'PATCH',
+            credentials:"include",
+            credentials:"include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -50,15 +52,7 @@ const requestUpdatePwd = async ()=>{
 
         if (!response.ok) {
             throw new Error('비밀번호 업데이트 실패');
-        }
-
-        const data = await response.json();
-        if(!data.data){
-            const existingToastMsg = document.getElementById('pwdUpdateSuccessToastMsg');
-            if (existingToastMsg) {
-                existingToastMsg.remove();
-            }
-
+        }else{
             const toastMsg = document.createElement('h5');
             toastMsg.classList.add("toastMsg");
             toastMsg.id = "pwdUpdateSuccessToastMsg"
@@ -66,7 +60,6 @@ const requestUpdatePwd = async ()=>{
 
             const changePwdForm = document.getElementById('changePwdForm');
             changePwdForm.append(toastMsg)
-            setTimeout(()=>{window.location.replace('/src/board/board.html')}, 3000)
         }
     }catch(error){
         console.error('비밀번호 변경 중 오류 발생:', error);

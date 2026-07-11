@@ -57,6 +57,7 @@ const setProfileImage = async (profileImage) => {
 
         const response = await fetch(`http://localhost:8080/users/${userId}/profilePicture`, {
             method: "GET",
+            credentials:"include",
             headers: {
                 "Content-Type": "application/json"
             }

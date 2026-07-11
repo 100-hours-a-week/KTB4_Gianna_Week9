@@ -10,7 +10,7 @@ const validateEmailInput = (emailInput) =>{
     const helperText = emailHelperTextMaker(emailInput);
     emailHelperText.textContent = helperText;
 
-    if(emailHelperText.value === "" && pwdHelperText.value === "") {
+    if(emailHelperText.textContent === "" && pwdHelperText.textContent === "") {
         loginBtn.disabled = false;
         loginBtn.style.backgroundColor="#7f6aee"
     }else{
@@ -41,35 +41,14 @@ pwdInput.addEventListener(('input'), ()=>{
     validatePwdInput(pwdInput.value);
 })
 
-loginBtn.addEventListener('click', async (event) => {
-    const emailInput = document.getElementById('email').value;
-    const pwdInput = document.getElementById('password').value;
+loginForm.addEventListener('submit', (event) => {
+    const emailValue = document.getElementById('email').value;
+    const pwdValue = document.getElementById('password').value;
      
-    validateEmailInput(emailInput);
-    validatePwdInput(pwdInput);
-    
-    try{
-        const response = await fetch('http://localhost:8080/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: emailInput,
-                password: pwdInput
-            })
-        });
+    validateEmailInput(emailValue);
+    validatePwdInput(pwdValue);
 
-        if (!response.ok) {
-            throw new Error('로그인 실패');
-        }
-
-        const data = await response.json();
-        document.cookie = `userId = ${data.data.id}; Path=/`
-        
-        window.location.href = '../board/board.html';
-    }catch(error){
-        console.error('로그인 중 오류 발생:', error);
+    if(emailHelperText.textContent !== "" || pwdHelperText.textContent !== "") {
+        event.preventDefault();
     }
 });
-

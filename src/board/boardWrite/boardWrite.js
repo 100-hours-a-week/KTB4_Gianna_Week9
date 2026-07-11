@@ -43,10 +43,10 @@ contentInput.addEventListener('input', ()=>{
 
 async function postWriteEventHandler() {
     const userId = await getUserId();
-    console.log(userId)
     try{
         const response = await fetch(`http://localhost:8080/posts/${userId}`, {
             method: 'POST',
+            credentials:"include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -76,6 +76,7 @@ async function postUpdateEventHandler(){
     try{
         const response = await fetch(`http://localhost:8080/posts/${postId}`, {
             method: 'PATCH',
+            credentials:"include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -109,7 +110,6 @@ postWriteBtn.addEventListener('click', async (event)=>{
 
 //수정할 때 화면 설정
 async function setFormWithPostInfo(post){
-    console.log(post)
     const postTitle = document.getElementById('postTitle');
     postTitle.value = post.title;
 
@@ -128,6 +128,7 @@ async function updateForm(postIdFromURL) {
     try {
         const response = await fetch(`http://localhost:8080/posts/${postIdFromURL}`, {
             method: 'GET',
+            credentials:"include",
             headers: {
                 'Content-Type': 'application/json'
             },                
