@@ -85,7 +85,7 @@ const makePostViewHeader = async (post, userId) =>{
             deleteBtn.addEventListener('click', async()=>{ 
                 if(window.confirm("게시글을 삭제하시겠습니까?")) {
                     await deletePost();}
-                    //window.location.href ="/src/board/board.html";
+                    window.location.href ="/src/board/board.html";
                 })
 
             
