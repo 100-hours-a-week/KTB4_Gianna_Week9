@@ -27,45 +27,39 @@ const checkAllInputFilled = () =>{
         && passwordInput.value.length !== 0
         && confirmPwdInput.value.length !== 0
         && nicknameInput.value.length !== 0) {
-          signupBtn.style.backgroundColor = "#7f6aee"
-          signupBtn.disabled = false;
-        }else{
-            signupBtn.style.backgroundColor = "#aca0eb"
+            signupBtn.disabled = false;
+            signupBtn.style.backgroundColor = "#7f6aee"
+    } else{
             signupBtn.disabled = true;
-        }
+            signupBtn.style.backgroundColor = "#aca0eb"
+        }                                       
 }
 
 profilePictureInput.addEventListener('change', (event) =>{
-    let helperTextMsg;
-    if(event.target.files[0]?.name){
-        helperTextMsg = pfpHelperTextMaker(event.target.files[0].name);
-    }else{
-        helperTextMsg = pfpHelperTextMaker(null)
-    }
-    pfpHelperText.textContent = helperTextMsg;
+    pfpHelperText.textContent = pfpHelperTextMaker(event.target.files[0].name);
+    checkAllInputFilled()
 })
 
 emailInput.addEventListener('input', ()=>{
-    const helperTextMsg = emailHelperTextMaker(emailInput.value);
-    emailHelperText.textContent = helperTextMsg;
+    emailHelperText.textContent = emailHelperTextMaker(emailInput.value);
     checkAllInputFilled()
 })
 
 passwordInput.addEventListener('input', () =>{
-    const helperTextMsg = pwdHelperTextMaker(passwordInput.value, confirmPwdInput.value);
-    pwdHelperText.textContent = helperTextMsg;
+    pwdHelperText.textContent = pwdHelperTextMaker(passwordInput.value, confirmPwdInput.value);
+    if(confirmPwdHelperText.textContent !== "") confirmPwdHelperText.textContent = confirmPwdHelperTextMaker(passwordInput.value, confirmPwdInput.value);
+
     checkAllInputFilled()
 })
 
 confirmPwdInput.addEventListener('input', () => {
-    const helperTextMsg = confirmPwdHelperTextMaker(passwordInput.value, confirmPwdInput.value);
-    confirmPwdHelperText.textContent = helperTextMsg;
-    checkAllInputFilled()
+    if(pwdHelperText.textContent !== "") pwdHelperText.textContent = pwdHelperTextMaker(passwordInput.value, confirmPwdInput.value);
+    confirmPwdHelperText.textContent = confirmPwdHelperTextMaker(passwordInput.value, confirmPwdInput.value);
+   checkAllInputFilled()
 })
 
 nicknameInput.addEventListener('input', ()=>{
-    const helperTextMsg = nicknameHelperTextMaker(nickname.value);
-    nicknameHelperText.textContent = helperTextMsg;
+    nicknameHelperText.textContent = nicknameHelperTextMaker(nickname.value);
     checkAllInputFilled()
 })
 
@@ -89,9 +83,7 @@ signupBtn.addEventListener('click', async (event) => {
         if (!response.ok) {
             throw new Error('회원가입 실패');
         }
-
-        const data = await response;
-        console.log('회원가입 성공:', data);
+        console.log('회원가입 성공:');
         window.location.replace('../login/login.html');
     }catch(error){
         console.error('회원가입 중 오류 발생:', error);
