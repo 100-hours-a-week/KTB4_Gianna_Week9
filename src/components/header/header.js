@@ -43,7 +43,7 @@ export const loadHeader = async () => {
 const setProfileImage = async (profileImage) => {
     const storedProfileImage = localStorage.getItem("profilePicture");
     if (storedProfileImage && storedProfileImage !== null) {
-        profileImage.src = `http://localhost:8080/uploads/${storedProfileImage}`;
+        profileImage.src = storedProfileImage;
         return;
     }
     
@@ -67,8 +67,8 @@ const setProfileImage = async (profileImage) => {
         const profilePictureData = data?.data?.profilePicture;
 
         if (profilePictureData) {
-            profileImage.src = `http://localhost:8080/uploads/${storedProfileImage}`;
-            localStorage.setItem("profilePicture", storedProfileImage);
+            profileImage.src = profilePictureData;
+            localStorage.setItem("profilePicture", profilePictureData);
         }
 
     } catch (error) {
