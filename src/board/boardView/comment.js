@@ -45,7 +45,7 @@ const updateCommentEventListener = async(event) =>{
             throw new Error('댓글 수정 실패');
         }
 
-        document.cookie = `curUpdateCommentId=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"`;
+        //document.cookie = `curUpdateCommentId=${commentId}; expires=Thu, 01 Jan 1970 00:00:00 UTC;"`;
         location.reload();
     }catch(error){
         console.error('댓글 작성 중 오류 발생:', error);
@@ -92,6 +92,7 @@ const getCommentList = async (postId) => {
         }
 
         const data = await response.json();
+        document.getElementById('postStatsCommentCountDesc').textContent = data.data.commentsList.length;
         data.data.commentsList.forEach(async (comment) => {
             await makeCommentView(comment, userId)
         });
