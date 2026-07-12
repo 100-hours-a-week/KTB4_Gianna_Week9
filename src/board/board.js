@@ -1,7 +1,7 @@
 import { loadHeader } from "../components/header/header.js";
 import { formalizeDate } from "../module/module.js";
 
-loadHeader();
+await loadHeader();
 
 const postList = [];
 showPostList();
