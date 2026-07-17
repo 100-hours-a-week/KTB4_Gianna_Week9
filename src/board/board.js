@@ -4,6 +4,16 @@ import { formalizeDate } from "../module/module.js";
 await loadHeader();
 
 const postList = [];
+const defaultPostImages = [
+    "https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1458560871784-56d23406c091?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1526243741027-444d633d7365?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1495195134817-aeb325a55b65?auto=format&fit=crop&w=700&q=80",
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80",
+];
+const defaultCategory = "일상";
+
 showPostList();
 
 async function getPostList  () {
@@ -30,33 +40,46 @@ async function getPostList  () {
 async function showPostList () {
 
     await getPostList();
+    const postListContainer = document.getElementById('post-list-container');
+    postListContainer.innerHTML = "";
+
     if (postList.length === 0) {
         return;
     }
 
-    postList.forEach((post)=>{
-        makePostView(post)
+    const postFragment = document.createDocumentFragment();
+
+    postList.forEach((post, index)=>{
+        postFragment.appendChild(makePostView(post, index));
     })
-   
-   
+
+    postListContainer.appendChild(postFragment);
 }
 
-const makePostView = (post) =>{
-    const postListContainer = document.getElementById('post-list-container');
+const makePostView = (post, index) =>{
     const postDiv = document.createElement("article");
     postDiv.classList.add('post-card');
     makePostClickEventListener(postDiv, post.id)
+
+    const image = document.createElement('div');
+    image.classList.add('post-card-image');
+    image.style.backgroundImage = `url("${getPostImage(post, index)}")`;
+    postDiv.append(image);
 
     const postMain = document.createElement('div');
     postMain.classList.add('post-card-main');
 
     const title = document.createElement('h3');
     title.classList.add('post-card-title');
-    title.textContent = post.title;
+    title.textContent = post.title || "제목 없는 기록";
     postMain.append(title);
 
     const meta = document.createElement('div');
     meta.classList.add('post-card-meta');
+
+    const category = document.createElement('span');
+    category.classList.add('post-card-category');
+    category.textContent = post.category || defaultCategory;
 
     const stats = document.createElement('div');
     stats.classList.add('post-card-stats');
@@ -75,9 +98,9 @@ const makePostView = (post) =>{
 
     const date = document.createElement('span');
     date.classList.add('post-card-date');
-    date.textContent = formalizeDate(post.createdAt);
+    date.textContent = post.createdAt ? formalizeDate(post.createdAt) : "";
 
-    meta.append(stats, date);
+    meta.append(category, stats, date);
     postMain.append(meta);
 
     const authorWrapper = document.createElement('div');
@@ -87,12 +110,20 @@ const makePostView = (post) =>{
     profile.classList.add('post-card-profile');
 
     const author = document.createElement('span');
-    author.textContent = post.author;
+    author.textContent = post.author || "익명";
     authorWrapper.append(profile, author);
 
     postDiv.append(postMain, authorWrapper);
 
-    postListContainer.appendChild(postDiv);
+    return postDiv;
+}
+
+const getPostImage = (post, index) => {
+    if (post.file) {
+        return post.file;
+    }
+
+    return defaultPostImages[index % defaultPostImages.length];
 }
 
 const makePostClickEventListener = (postDiv, postId)=>{
