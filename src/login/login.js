@@ -1,4 +1,5 @@
 import { emailHelperTextMaker, pwdHelperTextMaker } from "../utils/helperTextMaker.js";
+
 const loginForm = document.getElementById('login-form');
 const loginBtn = document.getElementById('loginBtn');
 
@@ -6,16 +7,17 @@ const emailHelperText = document.getElementById('emailHelperText');
 const pwdHelperText = document.getElementById('pwdHelperText');
 
 const emailInput = document.getElementById('email');
+
 const validateEmailInput = (emailInput) =>{
     const helperText = emailHelperTextMaker(emailInput);
     emailHelperText.textContent = helperText;
 
     if(emailHelperText.textContent === "" && pwdHelperText.textContent === "") {
         loginBtn.disabled = false;
-        loginBtn.style.backgroundColor="#7f6aee"
+        loginBtn.style.backgroundColor="#1f4b22"
     }else{
         loginBtn.disabled = true;
-        loginBtn.style.backgroundColor="#aca0eb"
+        loginBtn.style.backgroundColor="#8fa58a"
     };
 
 }
@@ -31,10 +33,10 @@ const validatePwdInput = (pwdInput)=>{
 
     if(emailHelperText.textContent === "" && pwdHelperText.textContent === "") {
         loginBtn.disabled = false;
-        loginBtn.style.backgroundColor="#7f6aee"
+        loginBtn.style.backgroundColor="#1f4b22"
     }else{
         loginBtn.disabled = true;
-        loginBtn.style.backgroundColor="#aca0eb"
+        loginBtn.style.backgroundColor="#8fa58a"
     };
 }
 pwdInput.addEventListener(('input'), ()=>{
