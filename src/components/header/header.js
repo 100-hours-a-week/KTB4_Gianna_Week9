@@ -2,7 +2,7 @@ import { getUserId } from "../../module/module.js";
 
 export const loadHeader = async () => {
     try {
-        const response = await fetch('../../components/header/header.html');
+        const response = await fetch('/src/components/header/header.html');
 
         if (!response.ok) {
             throw new Error('헤더를 불러오지 못했습니다.');
