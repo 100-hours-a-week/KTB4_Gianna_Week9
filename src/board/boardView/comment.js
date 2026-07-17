@@ -1,16 +1,20 @@
 import { getPostId, getUserId, getUser, formalizeDate } from "../../module/module.js";
+import { requestCsrfAPIJsonResponse } from "../../api/csrf.js";
 const postCommentBtn = document.getElementById('postCommentBtn');
+
 const postId = await getPostId();
 const userId = await getUserId();
+const csrf = await requestCsrfAPIJsonResponse();
+
 
 const commentEnterText = document.getElementById('commentContentEnter');
 commentEnterText.addEventListener('input', ()=>{
     if(commentEnterText.value.length === 0){
         postCommentBtn.disabled = true;
-        postCommentBtn.style.backgroundColor = "#aca0eb";
+        postCommentBtn.style.backgroundColor = "#8fa58a";
     } else if(commentEnterText.value.length !== 0 ){
         postCommentBtn.disabled = false;
-        postCommentBtn.style.backgroundColor = "#7f6aee";
+        postCommentBtn.style.backgroundColor = "#1f4b22";
     }
 })
 
@@ -34,7 +38,8 @@ const updateCommentEventListener = async(event) =>{
             method: 'PATCH',
             credentials:"include",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                [csrf.headerName] : csrf.token
             },
             body: JSON.stringify({
                 content: newContent.value,
@@ -60,7 +65,8 @@ const postCommentEventListener = async () =>{
             method: 'POST',
             credentials:"include",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                [csrf.headerName] : csrf.token
             },
             body: JSON.stringify({
                 content: commentContentEnter.value,
@@ -84,7 +90,9 @@ const getCommentList = async (postId) => {
         const response = await fetch(`http://localhost:8080/posts/${postId}/comments`, {
             method: 'GET',
             credentials:"include",
-            
+            headers:{
+                [csrf.headerName] : csrf.token
+            }
         });
 
         if (!response.ok) {
@@ -105,7 +113,6 @@ const getCommentList = async (postId) => {
 getCommentList(postId);
 
 const makeCommentView = async (comment, curUserId) =>{
-    const user= await getUser(curUserId);
     const commentItem = document.createElement('article');
     commentItem.classList.add('comment-item');
 
@@ -130,8 +137,7 @@ const makeCommentView = async (comment, curUserId) =>{
     const commentListContainer = document.getElementById('commentListContainer')
     meta.append(author, date);
     commentItem.append(profile, meta, content);
-    
-    if(curUserId == comment.userId) {
+    if(userId == comment.userId) {
         const actionGroup = document.createElement('div');
         actionGroup.classList.add('comment-action-group');
 
@@ -163,6 +169,9 @@ const requestDeleteComment = async (event, commentId) => {
         const response = await fetch(`http://localhost:8080/posts/${postId}/comments/${commentId}`, {
             method: 'DELETE',
             credentials:"include",        
+            headers:{
+                [csrf.headerName] : csrf.token
+            }
         });
 
         if (!response.ok) {
