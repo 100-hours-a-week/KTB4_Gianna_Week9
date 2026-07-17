@@ -1,4 +1,6 @@
 import { getUserId } from "../../module/module.js";
+import { deleteCookie } from "../../api/deleteCookie.js";
+import { requestCsrfAPIJsonResponse } from "../../api/csrf.js";
 
 export const loadHeader = async () => {
     try {
@@ -14,6 +16,11 @@ export const loadHeader = async () => {
     } catch (error) {
         console.error('헤더 로딩 중 오류 발생:', error);
     } finally {
+        const favicon = document.createElement("link");
+        favicon.rel = "icon";
+        favicon.href = "/src/assets/raffine_favicon.ico";
+        document.head.appendChild(favicon);
+        
         const profileToggleBtn = document.getElementById("profileToggleBtn");
         const profileImage = document.getElementById("headerProfilePicture");
         const mypageToggleContainer = document.querySelector(".mypage-toggle-container");
@@ -32,10 +39,12 @@ export const loadHeader = async () => {
             }
         });
 
-        logoutItem?.addEventListener('click', () => {
+        logoutItem?.addEventListener('click', async() => {
             if (window.confirm("로그아웃 하시겠습니까?")) {
-                window.location.href = "/login/login.html";
+                const response = await deleteCookie();
+                if(response === 204) window.location.replace("/src/login/login.html");
             } 
+
         });
     }
 };

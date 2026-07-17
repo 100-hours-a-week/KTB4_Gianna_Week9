@@ -21,6 +21,7 @@
     font-weight: 400;
 }
 
+
 .back-btn {
     position: absolute;
     left: calc(50% - 270px);
@@ -125,5 +126,43 @@
         left: auto;
         right: 12px;
         top: 64px;
+    }
+}
+
+@media (max-width: 680px) {
+    .write-post-link {
+        position: static;
+        width: 100%;
+        margin: 24px 0 0;
+    }
+
+    .post-list-container {
+        grid-template-columns: 1fr;
+    }
+
+    #headerContainer .main-header,
+    .board-page {
+        width: calc(100% - 32px);
+    }
+
+    #headerContainer .main-header {
+        height: 78px;
+    }
+
+    #headerContainer #headerTitle::before {
+        font-size: 30px;
+    }
+
+    #headerContainer .profile-toggle-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    #headerContainer .profile-toggle-btn::after {
+        display: none;
+    }
+
+    .board-intro h1 {
+        font-size: 25px;
     }
 }
