@@ -5,45 +5,131 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background-color: #f4f5f7;
-    color: #111111;
-    font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    background:
+        radial-gradient(circle at 56% 16%, rgba(255, 255, 255, 0.96) 0 35%, rgba(248, 245, 237, 0.9) 58%, rgba(119, 143, 105, 0.58) 100%),
+        linear-gradient(135deg, #d7dfce 0%, #fbf8ef 48%, #edf0e7 100%);
+    color: #244927;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+}
+
+#headerContainer .main-header {
+    height: 104px;
+    max-width: calc(100% - 96px);
+    margin: 0 auto;
+    justify-content: center;
+    border-bottom: none;
+    background-color: transparent;
+}
+
+#headerContainer #headerTitle {
+    margin: 0;
+    color: #244927;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0;
+    font-weight: 400;
+}
+
+#headerContainer #headerTitle::before {
+    content: "Raffiné";
+    font-size: 40px;
+}
+
+#headerContainer .back-btn {
+    left: 0;
+    color: #2b2a25;
+    font-size: 0;
+}
+
+#headerContainer .back-btn::before {
+    content: "← 목록으로 돌아가기";
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#headerContainer .profile-toggle-btn {
+    left: auto;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    background-color: #e7e3da;
+}
+
+#headerContainer .profile-toggle-btn::after {
+    content: "⌄";
+    position: fixed;
+    top: 48px;
+    right: 54px;
+    color: #1f2d1f;
+    font-size: 22px;
+    line-height: 1;
+}
+
+#headerContainer .mypage-toggle-container {
+    left: auto;
+    right: 0;
+    top: 78px;
+    border: 1px solid rgba(36, 73, 39, 0.12);
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 12px 28px rgba(53, 63, 45, 0.16);
 }
 
 .board-view-page {
-    width: 100%;
-    padding: 24px 20px 60px;
+    width: min(1180px, calc(100% - 96px));
+    margin: 0 auto;
+    padding: 16px 0 80px;
 }
 
-.post-detail,
-.comment-write-container,
-.comment-list-container {
-    width: 400px;
-    margin: 0 auto;
+.post-detail {
+    display: grid;
+    grid-template-columns: 43% 57%;
+    min-height: 760px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 24px 50px rgba(53, 63, 45, 0.18);
 }
 
 #postHeader {
-    position: relative;
-    padding: 0 0 18px;
-    border-bottom: 1px solid #dddddd;
+    grid-column: 2;
+    padding: 46px 58px 20px;
+}
+
+#postCategory {
+    margin: 0 0 28px;
+    color: #4e7448;
+    font-size: 15px;
+    font-weight: 700;
 }
 
 #title {
-    margin: 0 0 12px;
-    font-size: 18px;
-    font-weight: 700;
+    margin: 0 0 24px;
+    color: #17451f;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+#title::before {
+    content: "✧";
+    display: block;
+    margin-bottom: 22px;
+    color: #d49a34;
+    font-size: 24px;
 }
 
 .post-header-meta {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 18px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #e4dfd5;
 }
 
 #postProfilePicture,
 .comment-profile {
-    width: 28px;
-    height: 28px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     background-color: #d9d9d9;
     object-fit: cover;
@@ -57,142 +143,166 @@ body {
 #postAuthor,
 #postUploadDate {
     margin: 0;
-    font-size: 12px;
+    color: #6f6f6f;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 #postAuthor {
+    color: #244927;
     font-weight: 700;
 }
 
 .post-action-group {
-    position: absolute;
-    right: 8px;
-    bottom: 20px;
     display: flex;
     gap: 8px;
+    margin-top: 18px;
 }
 
 .post-action-group button,
 .comment-action-group button {
-    min-width: 36px;
-    height: 28px;
-    border: 1px solid #aca0eb;
+    min-width: 42px;
+    height: 30px;
+    border: 1px solid #d49a34;
     border-radius: 6px;
     background-color: #ffffff;
-    color: #111111;
+    color: #244927;
     font-size: 12px;
     cursor: pointer;
 }
 
 #postContainer {
-    padding: 16px 0 0;
+    display: contents;
 }
 
 #postViewFile {
+    grid-column: 1;
+    grid-row: 1 / 4;
     width: 100%;
-    height: 208px;
+    height: 100%;
+    min-height: 760px;
     display: block;
-    margin-bottom: 18px;
     background-color: #d9d9d9;
     object-fit: cover;
 }
 
-#postViewFile[src="#"],
-#postViewFile[src=""] {
-    object-fit: none;
-}
-
 #postContent {
-    margin: 0;
-    font-size: 13px;
+    grid-column: 2;
+    max-height: 360px;
+    margin: 0 58px;
+    padding: 30px 10px 30px 0;
+    overflow-y: auto;
+    border-bottom: 1px solid #e4dfd5;
+    color: #3f3f3f;
+    font-size: 16px;
     font-weight: 400;
-    line-height: 1.55;
+    line-height: 1.9;
     white-space: pre-wrap;
 }
 
+#postContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+#postContent::-webkit-scrollbar-track {
+    background-color: #f0eee8;
+    border-radius: 999px;
+}
+
+#postContent::-webkit-scrollbar-thumb {
+    background-color: #aaa7a0;
+    border-radius: 999px;
+}
+
 .post-stats {
+    grid-column: 2;
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin: 14px 0 20px;
+    gap: 12px;
+    margin: 28px 58px 42px;
 }
 
 .post-stats button {
-    width: 78px;
-    height: 56px;
+    min-width: 94px;
+    height: 40px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     border: none;
-    border-radius: 10px;
-    background-color: #d9d9d9;
-    color: #111111;
+    border-radius: 999px;
+    background-color: #f0f0ef;
+    color: #66715f;
     font-family: inherit;
     cursor: pointer;
 }
-
 
 .post-stats p {
     margin: 0;
 }
 
-.post-stats strong {
-    font-size: 16px;
-    line-height: 1;
-}
-
+.post-stats strong,
 .post-stats span {
-    margin-top: 4px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     line-height: 1;
 }
 
+.comment-write-container,
+.comment-list-container {
+    width: min(760px, 100%);
+    margin: 34px auto 0;
+}
+
 .comment-write-container {
-    border-top: 1px solid #dddddd;
-    border-bottom: 1px solid #dddddd;
-    background-color: #ffffff;
+    border: 1px solid #e4dfd5;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 12px 28px rgba(53, 63, 45, 0.1);
 }
 
 #commentContentEnter {
     width: 100%;
-    height: 84px;
+    height: 110px;
     display: block;
-    padding: 22px 16px;
+    padding: 22px 20px;
     border: none;
     border-bottom: 1px solid #eeeeee;
     resize: none;
     outline: none;
-    font-size: 13px;
+    color: #333333;
+    font-size: 14px;
     font-family: inherit;
 }
 
 #postCommentBtn {
-    width: 94px;
-    height: 30px;
+    width: 110px;
+    height: 34px;
     display: block;
-    margin: 6px 6px 6px auto;
+    margin: 10px 10px 10px auto;
     border: none;
-    border-radius: 12px;
-    background-color: #aca0eb;
+    border-radius: 7px;
+    background-color: #8fa58a;
     color: #ffffff;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
 }
 
 .comment-list-container {
-    padding-top: 14px;
+    padding-top: 6px;
 }
 
 .comment-item {
     position: relative;
     display: grid;
-    grid-template-columns: 28px 1fr auto;
-    column-gap: 10px;
-    row-gap: 6px;
-    padding: 0 0 18px;
+    grid-template-columns: 38px 1fr auto;
+    column-gap: 12px;
+    row-gap: 8px;
+    margin-bottom: 14px;
+    padding: 18px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 24px rgba(53, 63, 45, 0.08);
 }
 
 .comment-profile {
@@ -212,19 +322,23 @@ body {
 }
 
 .comment-author-text {
-    font-size: 12px;
+    color: #244927;
+    font-size: 13px;
     font-weight: 700;
 }
 
 .comment-date-text {
-    font-size: 11px;
+    color: #777777;
+    font-size: 12px;
     font-weight: 400;
 }
 
 .comment-content-text {
     grid-column: 2 / 4;
-    font-size: 12px;
+    color: #444444;
+    font-size: 13px;
     font-weight: 400;
+    line-height: 1.7;
 }
 
 .comment-action-group {
@@ -235,24 +349,77 @@ body {
     align-self: start;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 900px) {
+    #headerContainer .main-header,
     .board-view-page {
-        padding: 20px 16px 48px;
+        width: calc(100% - 40px);
+        max-width: none;
     }
 
-    .post-detail,
-    .comment-write-container,
-    .comment-list-container {
+    .post-detail {
+        display: block;
+        min-height: 0;
+    }
+
+    #postHeader {
+        padding: 34px 28px 18px;
+    }
+
+    #postViewFile {
         width: 100%;
+        height: 320px;
+        min-height: 0;
     }
 
-    .post-action-group {
-        position: static;
-        margin-top: 12px;
+    #postContent {
+        max-height: 360px;
+        margin: 0 28px;
+    }
+
+    .post-stats {
+        margin: 24px 28px 34px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 520px) {
+    #headerContainer .main-header,
+    .board-view-page {
+        width: calc(100% - 28px);
+    }
+
+    #headerContainer .main-header {
+        height: 88px;
+    }
+
+    #headerContainer #headerTitle::before {
+        font-size: 30px;
+    }
+
+    #headerContainer .back-btn::before {
+        font-size: 0;
+    }
+
+    #headerContainer .back-btn::after {
+        content: "←";
+        font-size: 28px;
+    }
+
+    #headerContainer .profile-toggle-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    #headerContainer .profile-toggle-btn::after {
+        display: none;
+    }
+
+    #title {
+        font-size: 30px;
     }
 
     .comment-item {
-        grid-template-columns: 28px 1fr;
+        grid-template-columns: 38px 1fr;
     }
 
     .comment-action-group {
